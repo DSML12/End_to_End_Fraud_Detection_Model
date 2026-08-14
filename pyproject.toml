@@ -1,0 +1,64 @@
+[project]
+name = "fraud-detection"
+version = "0.1.0"
+description = "End-to-end fraud detection system"
+requires-python = ">=3.11,<3.12"
+
+dependencies = [
+    "lightgbm>=4.5,<4.7",
+    "scikit-learn>=1.5,<1.7",
+    "scipy>=1.13,<1.15",
+    "numpy>=1.26,<2.2",
+    "pandas>=2.2,<3.0",
+    "boto3>=1.43,<2.0",
+    "pydantic>=2.13,<3.0",
+    "pydantic-settings>=2.14,<3.0",
+]
+
+[project.optional-dependencies]
+# Serving layer (API + UI); kept separate so the training image stays lean.
+api = [
+    "fastapi>=0.115,<1.0",
+    "uvicorn>=0.34,<1.0",
+]
+ui = [
+    "streamlit>=1.40,<2.0",
+]
+# Dev + test tooling.
+dev = [
+    "pytest>=9.1,<10.0",
+    "pytest-cov>=7.1,<8.0",
+    "moto>=5.2,<6.0",
+    "ruff>=0.9,<1.0",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
+
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "src/app.py",
+    "src/api/main.py",
+    "src/lambda_handler.py",
+]
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+# E/F = pyflakes+pycodestyle, I = isort, UP = pyupgrade, B = bugbear.
+select = ["E", "F", "I", "UP", "B"]
