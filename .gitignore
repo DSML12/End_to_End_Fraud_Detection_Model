@@ -1,0 +1,61 @@
+# Byte-compiled / optimized
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+FrML/
+ENV/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Test / coverage artifacts
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.tox/
+
+# Type checkers / linters
+.mypy_cache/
+.ruff_cache/
+
+# Models / data (large, live in S3 — never commit)
+*.txt.model
+*.pkl
+*.joblib
+*.csv
+*.json
+*.parquet
+data/
+models/
+*.log
+*.out
+
+# Secrets / config
+.env
+.env.*
+*.pem
+.aws/
+
+# AWS SAM / CDK (Phase 5, if used)
+.aws-sam/
+cdk.out/
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
