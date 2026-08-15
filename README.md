@@ -2,7 +2,6 @@
 
 Real-time credit-card fraud scoring model using both static and streaming features depolyed on ECS Cluster. A LightGBM model with isotonic calibration serves transaction-level fraud scores over a FastAPI service, backed by a DynamoDB online feature store that maintains velocity features across transactions.
 
----
 
 ## Architecture
 
