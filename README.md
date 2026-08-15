@@ -17,6 +17,10 @@ Kinesis stream ──▶ Lambda ──▶ Predictor
 ```
 Per-card state is committed to DynamoDB synchronously before the next transaction is scored, so velocity features (cc_cnt_1h, cc_cnt_24h, …) reflect true history. Predictions are written to S3 asynchronously.
 
+## Live Demo
+
+[End-to-End Fraud Detection Model Live Demo](https://github.com/user-attachments/assets/d96ce9d9-66b8-4b19-bac0-f0ff25a62d3a)
+
 ## Layout
 
 ```
