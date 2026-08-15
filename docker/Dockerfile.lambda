@@ -1,0 +1,25 @@
+FROM python:3.11-slim
+
+# Toolchain so any package lacking a wheel can still build; also lets
+# lightgbm 4.x resolve its manylinux wheels on a standard platform tag.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential libgomp1 && rm -rf /var/lib/apt/lists/*
+
+# Lambda Runtime Interface Client — lets a non-AWS base run as a Lambda.
+RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir \
+    awslambdaric \
+    "numpy>=1.26,<2.2" \
+    "scipy>=1.13,<1.15" \
+    "scikit-learn>=1.5,<1.7" \
+    "lightgbm>=4.5,<4.7" \
+    "boto3>=1.43,<2.0" \
+    "pydantic>=2.13,<3.0" \
+    "pydantic-settings>=2.14,<3.0"
+
+# lightgbm needs libgomp at runtime (OpenMP).
+ENV LAMBDA_TASK_ROOT=/var/task
+WORKDIR ${LAMBDA_TASK_ROOT}
+COPY src ${LAMBDA_TASK_ROOT}/src/
+
+ENTRYPOINT ["python", "-m", "awslambdaric"]
+CMD ["src.lambda_handler.handler"]
